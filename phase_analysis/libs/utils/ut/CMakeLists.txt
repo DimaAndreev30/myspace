@@ -4,6 +4,6 @@ set(SOURCE_FILES
 )
 
 add_executable(runUtilsTest ${SOURCE_FILES})
-target_link_libraries(runUtilsTest utils gtest gtest_main)
+target_link_libraries(runUtilsTest ${phan_utils} gtest gtest_main)
 
 add_test(NAME runUtilsTest COMMAND runUtilsTest)
