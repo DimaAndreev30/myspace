@@ -4,7 +4,7 @@
 
 #include <phase_analysis/libs/utils/easy_sort.h>
 
-using namespace MySpace::Utility;
+using namespace MySpace::PhAn::Utility;
     
     
 bool checkSorted(double array[3]) {

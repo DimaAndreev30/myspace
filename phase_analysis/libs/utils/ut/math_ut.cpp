@@ -2,7 +2,7 @@
 
 #include <phase_analysis/libs/utils/math.h>
 
-using namespace MySpace::Utility;
+using namespace MySpace::PhAn::Utility;
     
     
 class MathSignsavePowTest : public ::testing::Test {
