@@ -1,6 +1,6 @@
-add_library(simple_cubic_eq_solver simple.cpp formulas.cpp)
+add_library(cubic_equation_simple simple.cpp formulas.cpp)
 
-set(cubic_eq_solvers simple_cubic_eq_solver)
+set(cubic_equation_solver cubic_equation_simple)
 
 ## Тесты:
 add_subdirectory(ut)
