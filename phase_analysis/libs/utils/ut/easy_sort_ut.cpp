@@ -40,7 +40,8 @@ public:
     
     void testOn(double array[3]) const {
         sort(array);
-        ASSERT_TRUE(check(array)) << "failed in " << case_ << "case";
+        ASSERT_TRUE(check(array)) << "failed in " << case_ << " case on array: {"
+                                  << array[0] << ", " << array[1] << ", " << array[2] << "}";
     }
     
     void setCase(CaseType type) {
