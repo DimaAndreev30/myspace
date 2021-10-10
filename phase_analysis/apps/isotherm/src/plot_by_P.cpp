@@ -1,9 +1,12 @@
 #include "plot_by_P.h"
 
+#include <libs/utils/make_string.h>
 #include <libs/utils/assert.h>
 
 #include <cmath>
 #include <stdexcept>
+
+using MySpace::Utility::MakeString;
 
 
 namespace MySpace::PhAn {
@@ -13,13 +16,19 @@ namespace MySpace::PhAn {
                           const EoS::Interface& eos,
                           double T,
                           int N, double P1, double P2) {
-        ASSERT_EX(N > 1, std::invalid_argument, "N should be > 1");
-        ASSERT_EX(P1 < P2, std::invalid_argument, "P1 should be < P2");
+        ASSERT_EX(N > 1, 
+                  std::invalid_argument, 
+                  MakeString() << "N should be > 1: got " << N << " <= 1"
+        );
+        ASSERT_EX(P1 < P2, 
+                  std::invalid_argument, 
+                  MakeString() << "P1 should be < P2: got " << P1 << " >= " << P2
+        );
         
         double dP = (P2 - P1)/(N - 1);
         ASSERT_EX(dP > 1e-150 && std::abs(dP/P1) > 1e-12 && std::abs(dP/P2) > 1e-12,
                   std::invalid_argument,
-                  "N is too big"
+                  MakeString() << "N is too big: got " << N
         );
         
         double twoPhaseP = P2;

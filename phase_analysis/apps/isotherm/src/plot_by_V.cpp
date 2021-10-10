@@ -5,6 +5,8 @@
 #include <cmath>
 #include <stdexcept>
 
+using MySpace::Utility::MakeString;
+
 
 namespace MySpace::PhAn {
     
@@ -13,7 +15,10 @@ namespace MySpace::PhAn {
                           const EoS::Interface& eos,
                           double T,
                           int N, bool isAuto, double V1, double V2) {
-        ASSERT_EX(N > 1, std::invalid_argument, "N should be > 1");
+        ASSERT_EX(N > 1, 
+                  std::invalid_argument, 
+                  MakeString() << "N should be > 1: got " << N << " <= 1"
+        );
         
         double po1, po2;
         
@@ -21,7 +26,10 @@ namespace MySpace::PhAn {
             po1 = 1/(params.B*1.0001);
             po2 = po1/(N + 1);
         } else {
-            ASSERT_EX(V1 < V2, std::invalid_argument, "V1 should be < V2");
+            ASSERT_EX(V1 < V2, 
+                      std::invalid_argument, 
+                      MakeString() << "V1 should be < V2: got " << V1 << " >= " << V2
+            );
             
             po1 = 1/V1;
             po2 = 1/V2;
@@ -30,7 +38,7 @@ namespace MySpace::PhAn {
         double dpo = (po1 - po2)/(N - 1);
         ASSERT_EX(dpo > 1e-150 && std::abs(dpo/po1) > 1e-12 && std::abs(dpo/po2) > 1e-12,
                   std::invalid_argument,
-                  "N is too big"
+                  MakeString() << "N is too big: got " << N 
         );
         
         for (; po1 >= po2; po1 -= dpo) {
