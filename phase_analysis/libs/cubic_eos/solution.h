@@ -75,6 +75,8 @@ namespace MySpace::PhAn::EoS {
                     return "negative P with one root";
                 case NEGATIVE_P_THREE_ROOTS:
                     return "negative P with three roots";
+                default:
+                    return "unknown status";
             }
         }
         
