@@ -5,7 +5,7 @@ set(SOURCE_FILES
 add_executable(runCubicEquationTest ${SOURCE_FILES})
 target_link_libraries(
     runCubicEquationTest 
-    ${cubic_equation_solver} utils_easy_sort gtest gtest_main
+    ${cubic_equation_solver} phan_utils_easy_sort gtest gtest_main
 )
 
 add_test(NAME runCubicEquationTest COMMAND runCubicEquationTest)

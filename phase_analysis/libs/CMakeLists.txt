@@ -1,2 +1,3 @@
 add_subdirectory(utils)
 add_subdirectory(cubic_equation)
+add_subdirectory(cubic_eos)

@@ -1,0 +1,2 @@
+add_library(isotherm_plot_by_V plot_by_V.cpp)
+add_library(isotherm_plot_by_P plot_by_P.cpp)
