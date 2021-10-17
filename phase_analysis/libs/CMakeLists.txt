@@ -1,3 +1,5 @@
 add_subdirectory(utils)
+add_subdirectory(mixture)
 add_subdirectory(cubic_equation)
 add_subdirectory(cubic_eos)
+add_subdirectory(phase_equilibrium)

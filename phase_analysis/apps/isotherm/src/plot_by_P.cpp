@@ -12,7 +12,7 @@ using MySpace::Utility::MakeString;
 namespace MySpace::PhAn {
     
     void createPVCurveByP(std::ostream& out,
-                          const EoS::Params& TFactor,
+                          const EoS::Params& params,
                           const EoS::Interface& eos,
                           double T,
                           int N, double P1, double P2) {
@@ -39,8 +39,7 @@ namespace MySpace::PhAn {
         } state;
         
         while (true) {
-            EoS::Params params = eos.computeParamsFromTFactor(TFactor, P2);
-            EoS::Solution solution = eos.solve(params, P2 > 0);
+            EoS::Solution solution = eos.solve(params, P2);
             
             double Z = solution.getL();
             
@@ -95,7 +94,7 @@ namespace MySpace::PhAn {
                           double T,
                           int N, double P1, double P2) {
         createPVCurveByP(out, 
-                         eos.computeParamsTFactor(props, T),
+                         eos.computeParamsTForm(props, T),
                          eos,
                          T,
                          N, P1, P2);

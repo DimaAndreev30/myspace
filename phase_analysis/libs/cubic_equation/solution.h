@@ -2,7 +2,20 @@
 
 #include <array>
 
+ 
 namespace MySpace::PhAn::CubicEquation {
+    
+    /**
+    * Решение сохраняется в массиве roots из трех элементов.
+    * Тип возвращаемого значения:
+    * ONE_ROOT,    если имеется ровно один действительный корень
+    * TRIPLE_ROOT, если имеется тройной кратный корень
+    * DOUBLE_ROOT, если имеется двойной кратный корень
+    * THREE_ROOT,  если имеется три различных действительных корня
+    *
+    * При расчете мнимых корней, их действительная и мнимая часть записывается
+    * на вторую и третью позицию массива roots соответственно.
+    */
     
     struct Solution {
         enum Type {
@@ -14,7 +27,5 @@ namespace MySpace::PhAn::CubicEquation {
         
         std::array<double, 3> roots;
     };
-    
-    using Solver = Solution(double a, double b, double c);
 
 } // namespace MySpace::PhAn::CubicEquation;

@@ -1,0 +1,2 @@
+add_library(cubic_eos_mixture interface.cpp)
+target_link_libraries(cubic_eos_mixture cubic_eos_interface)

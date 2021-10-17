@@ -5,8 +5,8 @@
 #include <phase_analysis/libs/cubic_equation/simple.h>
 #include <phase_analysis/libs/utils/easy_sort.h>
 
-#include <limits>
 #include <algorithm>
+#include <cmath>
 
 
 namespace MySpace::PhAn::EoS {
@@ -43,8 +43,8 @@ namespace MySpace::PhAn::EoS {
         };
     }
                          
-    Params Interface::computeParamsTFactor(const PureSubstanceProps& props,
-                                           double T) const {
+    Params Interface::computeParamsTForm(const PureSubstanceProps& props,
+                                         double T) const {
         double Tr = T/props.Tc;
                              
         return Params{
@@ -53,8 +53,7 @@ namespace MySpace::PhAn::EoS {
         };
     }
     
-    Params Interface::computeParamsFromTFactor(const Params& params,
-                                               double P) {
+    Params Interface::computeParamsFromTForm(const Params& params, double P) {
         return Params{
             .A = params.A*P,
             .B = params.B*P
@@ -134,6 +133,10 @@ namespace MySpace::PhAn::EoS {
         );
     }
     
+    Solution Interface::solve(const Params& params, double P) const {
+        return solve(computeParamsFromTForm(params, P), P > 0);
+    }
+    
     double Interface::computeZFactor(double V, double T, double P) {
         return P*V/(R_CONST*T);
     }
@@ -141,5 +144,22 @@ namespace MySpace::PhAn::EoS {
     double Interface::computeFromZFactor(double Z, double T, double P) {
         return Z*R_CONST*T/P;
     }
+    
+    double Interface::computeM(const Params& params, double Z) const {
+        return params.A*std::log((Z + m2_*params.B)/(Z + m1_*params.B))/((m1_ - m2_)*params.B);
+    }
+    
+    double Interface::computeM(const Params& params, double Z, double P) const {
+        return computeM(params, Z/P);
+    }
+    
+    double Interface::getPhi(double Si, double A, double Bi, double B, double Z, double M) {
+        return std::exp(Bi*(Z - 1)/B + (2*Si/A - Bi/B)*M)/(Z - B);
+    }
+    
+    double Interface::getPhi(double Si, double A, double Bi, double B, double Z, double M, double P) {
+        return std::exp(Bi*(Z - 1)/B + (2*Si/A - Bi/B)*M)/(Z - B*P);
+    }
+        
     
 } // namespace MySpace::PhAn::EoS;

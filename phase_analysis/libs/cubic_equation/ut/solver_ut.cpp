@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <phase_analysis/libs/cubic_equation/solver.h>
+#include <phase_analysis/libs/cubic_equation/simple.h>
 
 #include <phase_analysis/libs/utils/easy_sort.h>
 

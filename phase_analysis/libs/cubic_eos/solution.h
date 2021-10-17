@@ -63,6 +63,10 @@ namespace MySpace::PhAn::EoS {
             return status_ == OK;
         }
         
+        Status getStatus() const {
+            return status_;
+        }
+        
         std::string getStatusAsString() const {
             switch (status_) {
                 case OK:

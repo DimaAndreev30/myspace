@@ -8,6 +8,8 @@
 #include <string>
 
 
+// TODO: переименовать Interface в CubicEoS
+
 namespace MySpace::PhAn::EoS {
     
     // Класс, реализующий расчеты по кубическим УРС типа Ван-дер-Ваальса.
@@ -24,7 +26,6 @@ namespace MySpace::PhAn::EoS {
             return 1.0;
         }
         
-    public:
         double alpha(double Tr, double w) const {
             return a0_*alphaT(Tr, w);
         }
@@ -32,6 +33,7 @@ namespace MySpace::PhAn::EoS {
             return b0_; // *betaT(Tr);
         }
         
+    public:
         //{ Вычисление параметров УРС:
         // В обычной форме:
         Params computeParams(const PureSubstanceProps& props,
@@ -40,13 +42,14 @@ namespace MySpace::PhAn::EoS {
         Params computeParams(const PureSubstanceProps& props,
                              double T, 
                              double P) const;
-        // Вычисляет составляющую безразмерной формы, зависящую от температуры: A(T), B(T), где:
-        // A(T, P) = A(T)*P, B(T, P) = B(T)*P
-        Params computeParamsTFactor(const PureSubstanceProps& props,
-                                    double T) const;
-        // Вычисляет параметры в безразмерной форме из составляющей, зависящей от температуры:
-        static Params computeParamsFromTFactor(const Params& params,
-                                               double P);
+        // Вычисляет составляющую безразмерной формы, зависящую от температуры: 
+        // A(T), B(T), где A(T, P) = A(T)*P, B(T, P) = B(T)*P
+        // (далее буду называть это температурной формой)
+        Params computeParamsTForm(const PureSubstanceProps& props,
+                                  double T) const;
+        // Вычисляет параметры в безразмерной форме из температурной формы:
+        // (банальное домножение на P, можно делать это и без помощи функции)
+        static Params computeParamsFromTForm(const Params& params, double P);
         //}
         
         //{ Вычисление давления по УРС:
@@ -59,7 +62,10 @@ namespace MySpace::PhAn::EoS {
         
         //{ Вычисление объема по УРС (решение кубического уравнения):
         // Параметры на входе должны быть в безразмерной форме.
+        // Результат так же в безразмерной форме (Z-factor)
         Solution solve(const Params& params, bool isPPositive = true) const;
+        // Вариация, принимающая на вход параметры в температурной форме:
+        Solution solve(const Params& params, double P) const;
         //}
         
         //{ Разные формулы:
@@ -67,6 +73,19 @@ namespace MySpace::PhAn::EoS {
         static double computeZFactor(double V, double T, double P);
         // Вычисление объема по Z-factor:
         static double computeFromZFactor(double Z, double T, double P);
+        
+        // Вычисление летучести фазы:
+        // Параметры на входе должны быть в безразмерной форме.
+        
+        // Множитель в формуле летучести, одинаковый для каждой компоненты смеси:
+        double computeM(const Params& params, double Z) const;
+        // Вариация, принимающая на вход параметры в температурной форме:
+        double computeM(const Params& params, double Z, double P) const;
+        
+        // Непосредственно вычисление летучести:
+        static double getPhi(double Si, double A, double Bi, double B, double Z, double M);
+        // Вариация, принимающая на вход параметры в температурной форме:
+        static double getPhi(double Si, double A, double Bi, double B, double Z, double M, double P);
         
         //}
        

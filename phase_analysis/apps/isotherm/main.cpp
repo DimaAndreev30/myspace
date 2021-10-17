@@ -5,8 +5,6 @@
 #include <phase_analysis/libs/cubic_eos/SRK.h>
 #include <phase_analysis/libs/cubic_eos/PR.h>
 
-#include <phase_analysis/libs/cubic_eos/constants.h>
-
 #include <string>
 #include <iostream>
 #include <fstream>
