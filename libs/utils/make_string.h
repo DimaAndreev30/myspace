@@ -14,8 +14,12 @@ namespace MySpace::Utility {
             return *this;
         }
         
-        operator std::string() const {
+        std::string asString() const {
             return stream_.str();
+        }
+        
+        operator std::string() const {
+            return asString();
         }
         
     protected:
