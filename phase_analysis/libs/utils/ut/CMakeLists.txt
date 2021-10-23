@@ -3,7 +3,7 @@ set(SOURCE_FILES
     easy_sort_ut.cpp
 )
 
-add_executable(runPhanUtilsTest ${SOURCE_FILES})
-target_link_libraries(runPhanUtilsTest ${phan_utils} gtest gtest_main)
+add_executable(run_phan_utils_test ${SOURCE_FILES})
+target_link_libraries(run_phan_utils_test ${phan_utils} gtest gtest_main)
 
-add_test(NAME runPhanUtilsTest COMMAND runPhanUtilsTest)
+add_test(NAME run_phan_utils_test COMMAND run_phan_utils_test)

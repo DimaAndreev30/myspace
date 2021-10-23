@@ -23,3 +23,4 @@ namespace MySpace::PhAn::EoS {
     double getPR_M  (double w);
     
 } // namespace MySpace::PhAn::EoS;
+

@@ -1,6 +1,9 @@
+#pragma once
+
 #include "make_string.h"
 
-#define ASSERT_EX(CONDITION, EXCEPTION, MESSAGE) { \
+
+#define MS_ASSERT_EX(CONDITION, EXCEPTION, MESSAGE) { \
     if (!(CONDITION)) { \
         throw EXCEPTION(MySpace::Utility::MakeString() << "Got '" << std::string(MESSAGE) \
                                                        << "' by failing the condition '" \
