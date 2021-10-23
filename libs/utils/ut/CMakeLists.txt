@@ -3,7 +3,7 @@ set(SOURCE_FILES
     assert_ut.cpp
 )
 
-add_executable(runUtilsTest ${SOURCE_FILES})
-target_link_libraries(runUtilsTest ${phan_utils} gtest gtest_main)
+add_executable(run_utils_test ${SOURCE_FILES})
+target_link_libraries(run_utils_test ${phan_utils} gtest gtest_main)
 
-add_test(NAME runUtilsTest COMMAND runUtilsTest)
+add_test(NAME run_utils_test COMMAND run_utils_test)

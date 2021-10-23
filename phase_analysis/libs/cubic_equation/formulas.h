@@ -1,5 +1,6 @@
 #pragma once
 
+
 namespace MySpace::PhAn::CubicEquation {
 
     // Функция, *точно* расчитывающая сумму alpha + beta из формулы для 
@@ -7,3 +8,4 @@ namespace MySpace::PhAn::CubicEquation {
     double getAlphaPlusBeta(double p, double q, double p3, double q2);
     
 } // namespace MySpace::PhAn::CubicEquation;
+
