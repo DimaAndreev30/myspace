@@ -1,6 +1,8 @@
 #include "src/plot_by_V.h"
 #include "src/plot_by_P.h"
 
+#include <phase_analysis/libs/cubic_eos/constants.h>
+
 #include <phase_analysis/libs/cubic_eos/RK.h>
 #include <phase_analysis/libs/cubic_eos/SRK.h>
 #include <phase_analysis/libs/cubic_eos/PR.h>
