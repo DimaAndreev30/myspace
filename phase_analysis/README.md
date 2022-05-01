@@ -5,5 +5,5 @@
 В расчетах используются кубические уравнения состояния типа Ван-дер-Ваальса:
  - Redlich-Kwong (RK)
  - Soave-Redlich-Kwong (SRK)
- - Peng-Robinson (PR))
+ - Peng-Robinson (PR)
 Фазовые равновесия считаются на основе K-values и flash calculation.

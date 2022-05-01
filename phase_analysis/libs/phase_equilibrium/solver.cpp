@@ -1,5 +1,7 @@
 #include "solver.h"
 
+#include <cmath>
+
 
 namespace MySpace::PhAn {
     
@@ -45,7 +47,7 @@ namespace MySpace::PhAn {
             double relerr = 0;
             for (int i = 0; i < N; i++) {
                 kValues[i] = phiL[i]/phiV[i];
-                relerr += compos.x[i]*kValues[i]/compos.y[i] - 1.0;
+                relerr += std::abs(compos.x[i]*kValues[i]/compos.y[i] - 1.0);
             }
             
             if (relerr < setts.eps*N) {

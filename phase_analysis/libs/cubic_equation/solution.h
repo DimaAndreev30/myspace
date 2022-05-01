@@ -1,31 +1,44 @@
 #pragma once
 
 #include <array>
+#include <ostream>
 
  
-namespace MySpace::PhAn::CubicEquation {
+namespace NMySpace::NPhan::NCubicEq {
     
     /**
-    * Решение сохраняется в массиве roots из трех элементов.
     * Тип возвращаемого значения:
-    * ONE_ROOT,    если имеется ровно один действительный корень
-    * TRIPLE_ROOT, если имеется тройной кратный корень
-    * DOUBLE_ROOT, если имеется двойной кратный корень
-    * THREE_ROOT,  если имеется три различных действительных корня
+    * One,    если имеется ровно один действительный корень
+    * Triple, если имеется тройной кратный корень
+    * Double, если имеется двойной кратный корень
+    * Three,  если имеется три различных действительных корня
     *
     * При расчете мнимых корней, их действительная и мнимая часть записывается
-    * на вторую и третью позицию массива roots соответственно.
+    * на вторую и третью позицию массива At соответственно.
     */
     
-    struct Solution {
-        enum Type {
-            ONE_ROOT,
-            TRIPLE_ROOT,
-            DOUBLE_ROOT,
-            THREE_ROOT
-        } type;
+    struct TSolution {
+        enum class EType {
+            One,
+            Double,
+            Triple,
+            Three
+        } Type;
         
-        std::array<double, 3> roots;
+        union {
+            std::array<double, 3> At;
+            struct {
+                double First, Second, Third;
+            } Re;
+            struct {
+                double Real;
+                struct { 
+                    double Re, Im; 
+                } Complex;
+            } Im;
+        };
     };
 
-} // namespace MySpace::PhAn::CubicEquation;
+}
+
+std::ostream& operator<<(std::ostream& out, const NMySpace::NPhan::NCubicEq::TSolution& s);

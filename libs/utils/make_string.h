@@ -1,29 +1,29 @@
 #pragma once
 
-#include <string>
 #include <sstream>
+#include <string>
 
 
-namespace MySpace::Utility {
+namespace NMySpace::NUtils {
     
-    class MakeString {
+    class TMakeString {
     public:
         template<class T>
-        MakeString& operator<< (const T& arg) {
-            stream_ << arg;
-            return *this;
+        TMakeString&& operator<< (T&& arg) && {
+            Stream_ << std::forward<T>(arg);
+            return std::move(*this);
         }
         
-        std::string asString() const {
-            return stream_.str();
+        std::string asString() && {
+            return Stream_.str();
         }
         
-        operator std::string() const {
-            return asString();
+        operator std::string() && {
+            return std::move(*this).asString();
         }
         
     protected:
-        std::stringstream stream_;
+        std::stringstream Stream_;
     };
 
-} // namespace MySpace::Utility;
+}

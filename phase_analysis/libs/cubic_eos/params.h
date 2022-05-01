@@ -1,12 +1,13 @@
 #pragma once
 
 
-namespace MySpace::PhAn::EoS {
+namespace NMySpace::NPhAn::NEoS {
     
     // Структура для хранения параметров A и B 
     // двухпараметрического кубического УРС типа Ван-дер-Ваальса.
-    struct Params {
-        double A, B;
+    struct TParams {
+        double A = 0.0;
+        double B = 0.0;
     };
     
-} // namespace MySpace::PhAn::EoS;
+}

@@ -4,13 +4,13 @@
 // Библиотеки содержат функции для решения кубических уравнений вида
 //                    X^3 + aX^2 + bX + c = 0
 // Расчеты проводятся по аналитическим формулам Кардано.
-// Решение сохраняется в типе CubicEquation::Solution
+// Решение сохраняется в типе TCubicEq::TSolution
 
 #include "solution.h"
 
  
-namespace MySpace::PhAn::CubicEquation {
+namespace NMySpace::NPhan::NCubicEq {
     
-    using Solver = Solution(double a, double b, double c);
+    using Solver = TSolution(double a, double b, double c);
 
-} // namespace MySpace::PhAn::CubicEquation;
+}

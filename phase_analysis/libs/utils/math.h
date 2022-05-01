@@ -1,10 +1,10 @@
 #pragma once
 
 
-namespace MySpace::PhAn::Utility {
+namespace NMySpace::NPhan::NUtils {
 
     // Показательная функция, которая не боится знаков:
     // для x < 0 возвращаемое значение -(-x)^y
-    double sign_save_pow(double x, double y);
+    double signSavePow(double x, double y);
 
-} // namespace MySpace::PhAn::Utility;
+}

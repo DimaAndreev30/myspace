@@ -3,7 +3,7 @@
 
 // Библиотека с функциями, выполняющими сортировку трехэлементного массива.
 
-namespace MySpace::PhAn::Utility {
+namespace NMySpace::NPhan::NUtils {
 
     // Сортировка от меньшего к большему.
     void sort3(double array[3]);
@@ -15,4 +15,4 @@ namespace MySpace::PhAn::Utility {
     // Сортировка от большего к меньшему по модулю.
     void sortAbs3Desc(double array[3]);
     
-} // namespace MySpace::PhAn::Utility;
+}

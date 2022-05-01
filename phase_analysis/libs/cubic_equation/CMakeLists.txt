@@ -1,4 +1,9 @@
-add_library(cubic_equation_simple simple.cpp formulas.cpp)
+add_library(
+    phan_cubic_equation
+    formulas.cpp
+    simple.cpp 
+    solution.cpp
+)
 
 ## Тесты:
 add_subdirectory(ut)
