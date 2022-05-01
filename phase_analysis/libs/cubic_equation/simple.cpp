@@ -5,9 +5,9 @@
 #include <cmath>
 
 
-namespace MySpace::PhAn::CubicEquation {
+namespace NMySpace::NPhan::NCubicEq {
 
-    Solution solve(double a, double b, double c) {
+    TSolution simpleSolve(double a, double b, double c) {
         a /= 3; b /= 3;
         
         // Вычисление коэффициентов приведенного уравнения:
@@ -21,24 +21,24 @@ namespace MySpace::PhAn::CubicEquation {
             double sqrt_p = std::sqrt(p);
             double phi = std::acos(-q/(p*sqrt_p))/3;
             
-            return Solution{
-                .type = Solution::THREE_ROOT,
-                .roots = {
+            return TSolution{
+                .Type = TSolution::EType::Three,
+                .At = {
                     2*sqrt_p*std::cos(phi) - a,
                     2*sqrt_p*std::cos(phi + 2*M_PI/3) - a,
                     2*sqrt_p*std::cos(phi - 2*M_PI/3) - a
-                }
+                },
             };
         }
         // Один действительный корень
         else {
-            return Solution{
-                .type = Solution::ONE_ROOT,
-                .roots = {
-                    getAlphaPlusBeta(p, q, p3, q2) - a
-                }
+            return TSolution{
+                .Type = TSolution::EType::One,
+                .Re = {
+                    .First = getAlphaPlusBeta(p, q, p3, q2) - a,
+                },
             };
         }
     }
 
-} // namespace MySpace::PhAn::CubicEquation;
+}

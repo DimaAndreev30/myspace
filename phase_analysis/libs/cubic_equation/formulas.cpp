@@ -3,7 +3,7 @@
 #include <cmath>
 
 
-namespace MySpace::PhAn::CubicEquation {
+namespace NMySpace::NPhan::NCubicEq {
     
     double getAlphaPlusBeta(double p, double q, double p3, double q2) {
         static const double DOUBLE_EPSILON12 = 1.0/0x1000;
@@ -26,4 +26,4 @@ namespace MySpace::PhAn::CubicEquation {
         }
     }
     
-} // namespace MySpace::PhAn::CubicEquation;
+}

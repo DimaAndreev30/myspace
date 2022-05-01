@@ -1,8 +1,7 @@
 add_executable(FD main.cpp)
 target_link_libraries(
     FD
-    ph_eq_wilson
-    ph_eq
-    cubic_eos_mixture
+    FD_by_P
+    FD_along_c
     ${cubic_eos}
 )

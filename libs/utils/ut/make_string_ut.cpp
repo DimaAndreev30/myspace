@@ -1,16 +1,16 @@
-#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 #include <libs/utils/make_string.h>
 
-using namespace MySpace::Utility;
+using namespace NMySpace::NUtils;
 
 
-TEST(UtilsMakeStringTest, Test) {
-    ASSERT_EQ("", (MakeString()).asString());
-    ASSERT_EQ("qwerty", (MakeString() << "qwerty").asString());
-    ASSERT_EQ("qwerty", (MakeString() << "qwe" << "rty").asString());
-    ASSERT_EQ("qwerty", (MakeString() << 'q' << 'w' << 'e' << 'r' << 't' << 'y').asString());
+TEST(UtilsMakeStringTest, common) {
+    ASSERT_EQ("", (TMakeString()).asString());
+    ASSERT_EQ("qwerty", (TMakeString() << "qwerty").asString());
+    ASSERT_EQ("qwerty", (TMakeString() << "qwe" << "rty").asString());
+    ASSERT_EQ("qwerty", (TMakeString() << 'q' << 'w' << 'e' << 'r' << 't' << 'y').asString());
     
-    std::string str = MakeString() << "qwerty";
-    ASSERT_TRUE("qwerty" == str);
+    std::string str = TMakeString() << "qwerty";
+    ASSERT_EQ("qwerty", str);
 }

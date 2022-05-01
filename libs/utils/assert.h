@@ -1,14 +1,16 @@
 #pragma once
 
+#include "exceptions.h"
 #include "make_string.h"
 
 
-#define MS_ASSERT_EX(CONDITION, EXCEPTION, MESSAGE) { \
+#define MY_ENSURE_EX(CONDITION, EXCEPTION, MESSAGE) { \
     if (!(CONDITION)) { \
-        throw EXCEPTION(MySpace::Utility::MakeString() << "Got '" << std::string(MESSAGE) \
-                                                       << "' by failing the condition '" \
-                                                       << #CONDITION << "' in function '" \
-                                                       << __func__ << "' in line " << __LINE__ \
-                                                       << " from file " << __FILE__); \
+        throw EXCEPTION(NMySpace::NUtils::TMakeString() \
+            << __FILE__ << ":" << __LINE__ << " in " << __func__ \
+            << " ASSERTION FAILED MY_ENSURE_EX(" << #CONDITION \
+            << "): " << MESSAGE); \
     } \
 }
+
+#define MY_ENSURE(CONDITION, MESSAGE) MY_ENSURE_EX(CONDITION, NMySpace::NUtils::TException, MESSAGE)

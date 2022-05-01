@@ -1,9 +1,8 @@
-set(SOURCE_FILES
+add_executable(
+    run_utils_test 
     make_string_ut.cpp
     assert_ut.cpp
 )
-
-add_executable(run_utils_test ${SOURCE_FILES})
-target_link_libraries(run_utils_test ${phan_utils} gtest gtest_main)
+target_link_libraries(run_utils_test gmock gmock_main)
 
 add_test(NAME run_utils_test COMMAND run_utils_test)

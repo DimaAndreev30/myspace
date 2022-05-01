@@ -3,10 +3,10 @@
 #include <cmath>
 
 
-namespace MySpace::PhAn::Utility {
+namespace NMySpace::NPhan::NUtils {
 
-    double sign_save_pow(double x, double y) {
+    double signSavePow(double x, double y) {
         return x > 0 ? std::exp(y*std::log(x)) : -std::exp(y*std::log(-x));
     }
 
-} // namespace MySpace::PhAn::Utility;
+}

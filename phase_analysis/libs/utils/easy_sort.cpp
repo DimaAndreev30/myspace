@@ -4,7 +4,7 @@
 #include <algorithm>
 
 
-namespace MySpace::PhAn::Utility {
+namespace NMySpace::NPhan::NUtils {
 
     void sort3(double array[3]) {
         if (array[0] > array[1]) {
@@ -55,4 +55,4 @@ namespace MySpace::PhAn::Utility {
         }
     }
  
-} // namespace MySpace::PhAn::Utility;
+}

@@ -2,4 +2,4 @@
 add_subdirectory(libs)
 
 ## Сборка приложений:
-add_subdirectory(apps)
+# add_subdirectory(apps)
