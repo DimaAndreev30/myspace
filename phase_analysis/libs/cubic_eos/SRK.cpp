@@ -5,16 +5,16 @@
 #include <cmath>
 
 
-namespace MySpace::PhAn::EoS {
+namespace NMySpace::NPhan::NEoS {
     
-    SRKInterface::SRKInterface()
-        : Interface(0, 1, OmegaA0_SRK, OmegaB0_SRK, "SRK")
+    TSRK::TSRK()
+        : TCubicEoS(0, 1, OmegaA0_SRK, OmegaB0_SRK, "SRK")
     {
     }
     
-    double SRKInterface::alphaT(double Tr, double w) const {
+    double TSRK::alphaT(double Tr, double w) const {
         double temp = (1 + getSRK_M(w)*(1 - std::sqrt(Tr)));
         return temp*temp;
     }
     
-} // namespace MySpace::PhAn::EoS;
+}

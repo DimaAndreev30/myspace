@@ -1,17 +1,17 @@
 #pragma once
 
-#include "interface.h"
+#include "eos.h"
 
 
-namespace MySpace::PhAn::EoS {
+namespace NMySpace::NPhan::NEoS {
     
     // Уравнение Соуве-Редлиха-Квонга.
-    class SRKInterface : public Interface {
+    class TSRK : public TCubicEoS {
     public:
-        SRKInterface();
+        TSRK();
         
     private:
         double alphaT(double Tr, double w) const override;
     };
     
-} // namespace MySpace::PhAn::EoS;
+}

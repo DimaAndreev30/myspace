@@ -34,8 +34,8 @@ namespace NMySpace::NPhan::NCubicEq {
         else {
             return TSolution{
                 .Type = TSolution::EType::One,
-                .Re = {
-                    .First = getAlphaPlusBeta(p, q, p3, q2) - a,
+                .Im = {
+                    .Real = getAlphaPlusBeta(p, q, p3, q2) - a,
                 },
             };
         }

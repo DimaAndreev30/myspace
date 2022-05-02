@@ -1,87 +1,86 @@
 #include "plot_by_P.h"
 
-#include <libs/utils/make_string.h>
+#include <phase_analysis/libs/cubic_eos/constants.h>
+
 #include <libs/utils/assert.h>
 
 #include <cmath>
-#include <stdexcept>
-
-using MySpace::Utility::MakeString;
 
 
-namespace MySpace::PhAn {
+namespace NMySpace::NPhan {
     
     void createPVCurveByP(std::ostream& out,
-                          const EoS::Params& params,
-                          const EoS::Interface& eos,
+                          const NEoS::TDimlessParamsFactory& p,
+                          const NEoS::TCubicEoS& eos,
                           double T,
                           int N, double P1, double P2) {
-        MS_ASSERT_EX(N > 1, 
-                     std::invalid_argument, 
-                     MakeString() << "N should be > 1: got " << N << " <= 1"
-        );
-        MS_ASSERT_EX(P1 < P2, 
-                     std::invalid_argument, 
-                     MakeString() << "P1 should be < P2: got " << P1 << " >= " << P2
-        );
+        MY_ENSURE(N > 1, "N should be > 1: got " << N << " <= 1");
+        MY_ENSURE(P1 < P2, "P1 should be < P2: got " << P1 << " >= " << P2);
         
         double dP = (P2 - P1)/(N - 1);
-        MS_ASSERT_EX(dP > 1e-150 && std::abs(dP/P1) > 1e-12 && std::abs(dP/P2) > 1e-12,
-                     std::invalid_argument,
-                     MakeString() << "N is too big: got " << N
-        );
+        MY_ENSURE(
+            dP > 1e-150 && std::abs(dP/P1) > 1e-12 && std::abs(dP/P2) > 1e-12,
+            "N is too big: got " << N);
         
-        double twoPhaseP = P2;
+        double twoPhaseStart;
         enum {
-            NO_TWO_PHASES_DETECTED,
-            TWO_PHASES_LIQUID,
-            TWO_PHASES_GAS
-        } state;
+            NoTwoPhasesDetected,
+            TwoPhasesLiquid,
+            TwoPhasesVapor
+        } state = NoTwoPhasesDetected;
         
-        while (true) {
-            EoS::Solution solution = eos.solve(params, P2);
+        auto switchPhase = [&]() mutable {
+            out << "\n\n";
             
-            double Z = solution.getL();
-            
-            if (state == NO_TWO_PHASES_DETECTED) {
-                if (P2 <= P1) {
-                    break;
-                }
-                if (solution.isTwoPhases()) {
-                    state = TWO_PHASES_LIQUID;
-                    twoPhaseP = P2;
+            state = TwoPhasesVapor;
+            P2 = twoPhaseStart;
+            P1 = 0;
+        };
+        
+        while(true) {
+            if (P2 <= P1) {
+                switch (state) {
+                    case NoTwoPhasesDetected:
+                    case TwoPhasesVapor:
+                        return;
+                    case TwoPhasesLiquid:
+                        switchPhase();
+                        continue;
                 }
             }
-            if (state == TWO_PHASES_LIQUID) {
-                if (P2 <= P1 ||
-                    !solution.isSolution() ||
-                    (!solution.isTwoPhases() && P2 > dP)) {
-                    state = TWO_PHASES_GAS;
-                    if (P1 <= 0) {
-                        P1 = 0;
-                    }
-                    P2 = twoPhaseP;
-                    
-                    out << "\n\n";
-                    
-                    continue;
-                }
-            }
-            if (state == TWO_PHASES_GAS) {
-                if (P2 <= P1) {
-                    break;
-                }
                 
-                Z = solution.getV();
-            }
+            NEoS::TSolution solution = eos.solve(p.get(P2));
             
-            if (!solution.isSolution()) {
-                break;
+            double Z;
+            switch (state) {
+                case NoTwoPhasesDetected:
+                    if (!solution.isSolution()) {
+                        continue;
+                    }
+                    if (solution.isTwoPhases()) {
+                        state = TwoPhasesLiquid;
+                        twoPhaseStart = P2;
+                    }
+                    Z = solution.getL();
+                    break;
+                case TwoPhasesLiquid:
+                    if (!solution.isSolution() ||
+                        (!solution.isTwoPhases() && P2 > dP)) {
+                        switchPhase();
+                        continue;
+                    }
+                    Z = solution.getL();
+                    break;
+                case TwoPhasesVapor:
+                    if (!solution.isSolution()) {
+                        return;
+                    }
+                    Z = solution.getV();
+                    break;
             }
             
             out << P2 << ' ' << Z << ' ' 
-                << eos.computeFromZFactor(Z, T, P2) << ' ' 
-                << solution.getStatusAsString() << " | "
+                << NEoS::FromZFactor(Z, P2, T) << ' ' 
                 << (solution.isTwoPhases() ? "two phases" : "one phase") << '\n';
                 
             P2 -= dP;
@@ -89,15 +88,15 @@ namespace MySpace::PhAn {
     }
                           
     void createPVCurveByP(std::ostream& out,
-                          const PureSubstanceProps& props,
-                          const EoS::Interface& eos,
+                          const TPureSubstanceProps& props,
+                          const NEoS::TCubicEoS& eos,
                           double T,
                           int N, double P1, double P2) {
         createPVCurveByP(out, 
-                         eos.computeParamsTForm(props, T),
+                         eos.BuildDimlessParams(props, T),
                          eos,
                          T,
                          N, P1, P2);
     }
     
-} // namespace MySpace::PhAn;
+}

@@ -1,7 +1,7 @@
 #include "constants.h"
 
 
-namespace MySpace::PhAn::EoS {
+namespace NMySpace::NPhan::NEoS {
     
     const double R_CONST = 0.083144598484848;
 
@@ -13,14 +13,22 @@ namespace MySpace::PhAn::EoS {
 
     const double SQRT_TWO = 1.414213562373095;
 
-    double getSRK_M (double w) {
+    double getSRK_M(double w) {
         return 0.48 + w*(1.574 - w*0.176);
     }
 
-    double getPR_M  (double w) {
+    double getPR_M(double w) {
         if (w < 0.49) return 0.37464 + w*(1.54226 - w*0.26992);
         else return 0.379642 + w*(1.48503 + w*(w*0.016666 - 0.164423));
     }
     
-} // namespace MySpace::PhAn::EoS;
+    double ToZFactor(double V, double P, double T) {
+        return (R_CONST*V)/(P*T);
+    }
+    
+    double FromZFactor(double Z, double P, double T) {
+        return R_CONST*Z*T/P;
+    }
+    
+}
 

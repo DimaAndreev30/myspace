@@ -104,7 +104,7 @@ protected:
     std::vector<TSortCase> Cases_;
 };
     
-TEST_F(PhanUtilsEasySortTest, BasicTests) {
+TEST_F(PhanUtilsEasySortTest, basicTests) {
     testOn(1, 2, 3);
     testOn(2, 3, 1);
     testOn(3, 1, 2);
@@ -113,7 +113,7 @@ TEST_F(PhanUtilsEasySortTest, BasicTests) {
     testOn(2, 1, 3);
 }
 
-TEST_F(PhanUtilsEasySortTest, BorderTests) {
+TEST_F(PhanUtilsEasySortTest, borderTests) {
     testOn(1, 1, 1);
     testOn(1, 1, 2);
     testOn(1, 2, 1);

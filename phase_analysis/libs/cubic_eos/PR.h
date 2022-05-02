@@ -1,17 +1,17 @@
 #pragma once
 
-#include "interface.h"
+#include "eos.h"
 
 
-namespace MySpace::PhAn::EoS {
+namespace NMySpace::NPhan::NEoS {
     
     // Уравнение Пенга-Робинсона.
-    class PRInterface : public Interface {
+    class TPR : public TCubicEoS {
     public:
-        PRInterface();
+        TPR();
         
     private:
         double alphaT(double Tr, double w) const override;
     };
     
-} // namespace MySpace::PhAn::EoS;
+}

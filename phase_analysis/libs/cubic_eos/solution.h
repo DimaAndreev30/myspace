@@ -3,93 +3,60 @@
 #include <string>
 
 
-namespace MySpace::PhAn::EoS {
-    
-    class Solution {
-    public:
-        enum Status {
-            OK,
-            POSITIVE_P_NO_ROOTS,
-            POSITIVE_P_TWO_ROOTS,
-            NEGATIVE_P_ONE_ROOT,
-            NEGATIVE_P_THREE_ROOTS
+        enum EStatus {
+            Ok,
+            PositivePressureNoRoots,
+            PositivePressureTwoRoots,
+            NegativePressureOneRoot,
+            NegativePressureThreeRoots
         };
         
+namespace NMySpace::NPhan::NEoS {
+    
+    class TSolution {
     public:
-        Solution(Status status = OK)
-            : status_(status)
-            , smaller_(0)
-            , bigger_(0)
-            , isTwoPhases_(false)
-            , isSolution_(false)
+        TSolution()
+            : IsTwoPhases_(false)
+            , IsSolution_(false)
         {
         }
         
-        Solution(double solution, Status status = OK)
-            : status_(status)
-            , smaller_(solution)
-            , bigger_(solution)
-            , isTwoPhases_(false)
-            , isSolution_(true)
+        TSolution(double solution)
+            : Smaller_(solution)
+            , Bigger_(solution)
+            , IsTwoPhases_(false)
+            , IsSolution_(true)
         {
         }
         
-        Solution(double smaller, double bigger, Status status = OK)
-            : status_(status)
-            , smaller_(smaller)
-            , bigger_(bigger)
-            , isTwoPhases_(true)
-            , isSolution_(true)
+        TSolution(double smaller, double bigger)
+            : Smaller_(smaller)
+            , Bigger_(bigger)
+            , IsTwoPhases_(true)
+            , IsSolution_(true)
         {
         }
             
         bool isSolution() const {
-            return isSolution_;
+            return IsSolution_;
         }
         
         bool isTwoPhases() const {
-            return isTwoPhases_;
+            return IsTwoPhases_;
         }
         
         double getL() const {
-            return smaller_;
+            return Smaller_;
         }
         
         double getV() const {
-            return bigger_;
-        }
-        
-        double isOk() const {
-            return status_ == OK;
-        }
-        
-        Status getStatus() const {
-            return status_;
-        }
-        
-        std::string getStatusAsString() const {
-            switch (status_) {
-                case OK:
-                    return "ok";
-                case POSITIVE_P_NO_ROOTS:
-                    return "positive P with no roots";
-                case POSITIVE_P_TWO_ROOTS:
-                    return "positive P with two roots";
-                case NEGATIVE_P_ONE_ROOT:
-                    return "negative P with one root";
-                case NEGATIVE_P_THREE_ROOTS:
-                    return "negative P with three roots";
-                default:
-                    return "unknown status";
-            }
+            return Bigger_;
         }
         
     private:
-        Status status_;
-        
-        double smaller_, bigger_;
-        bool isTwoPhases_;
-        bool isSolution_;
+        double Smaller_, Bigger_;
+        bool IsTwoPhases_;
+        bool IsSolution_;
     };
     
-} // namespace MySpace::PhAn::EoS;
+}

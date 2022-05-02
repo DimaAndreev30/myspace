@@ -84,9 +84,9 @@ void testCase(const TTestCase& test, Solver solver) {
     } else {
         sortAbs3(s.At.data());
         
-        EXPECT_NEAR(test.s.Re.First,  s.Re.First,  1e-5) << "Smallest root failed on case:\n" << test;
-        EXPECT_NEAR(test.s.Re.Second, s.Re.Second, 1e-5) << "Middle root failed on case:\n" << test;
-        EXPECT_NEAR(test.s.Re.Third,  s.Re.Third,  1e-5) << "Largest root failed on case:\n" << test;
+        EXPECT_NEAR(test.s.At[0], s.At[0], 1e-5) << "Smallest root failed on case:\n" << test;
+        EXPECT_NEAR(test.s.At[1], s.At[1], 1e-5) << "Middle root failed on case:\n" << test;
+        EXPECT_NEAR(test.s.At[2], s.At[2], 1e-5) << "Largest root failed on case:\n" << test;
     }
 }
 

@@ -1,6 +1,5 @@
-# TODO: targets naming. Aliases, namespaces
-
 cmake_minimum_required(VERSION 3.13.0)
+set(CMAKE_CXX_STANDARD 17)
 project(myspace LANGUAGES C CXX)
 
 

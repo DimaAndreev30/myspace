@@ -1,13 +1,39 @@
 #pragma once
 
 
-namespace NMySpace::NPhAn::NEoS {
+namespace NMySpace::NPhan::NEoS {
     
-    // Структура для хранения параметров A и B 
-    // двухпараметрического кубического УРС типа Ван-дер-Ваальса.
-    struct TParams {
+    // Структура для хранения параметров:
+    struct TParamsBase {
+        double T = 0.0;
+        
         double A = 0.0;
         double B = 0.0;
+    };
+    
+    // Параметры УРС в обычной форме:
+    struct TParams: public TParamsBase {
+        TParams(const TParamsBase& base)
+            : TParamsBase(base) 
+        {}
+    };
+    
+    // Параметры УРС в безразмерной форме:
+    struct TDimlessParams: public TParamsBase {
+        TDimlessParams(const TParamsBase& base, double initP)
+            : TParamsBase(base)
+            , P(initP)
+        {}
+        
+        double P = 0.0;
+    };
+    
+    struct TDimlessParamsFactory: public TParamsBase {
+        TDimlessParamsFactory(const TParamsBase& base)
+            : TParamsBase(base) 
+        {}
+        
+        TDimlessParams get(double P) const;
     };
     
 }

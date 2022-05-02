@@ -1,9 +1,11 @@
 add_subdirectory(src)
 
-add_executable(isotherm main.cpp)
+add_executable(phan_isotherm main.cpp)
 target_link_libraries(
-    isotherm 
-    isotherm_plot_by_V 
-    isotherm_plot_by_P 
-    ${cubic_eos}
+    phan_isotherm 
+    phan_isotherm_plot_by_V 
+    phan_isotherm_plot_by_P
+    phan_cubic_eos_RK
+    phan_cubic_eos_SRK
+    phan_cubic_eos_PR
 )

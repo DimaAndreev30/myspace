@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace MySpace::PhAn::EoS {
+namespace NMySpace::NPhan::NEoS {
     
     // Универсальная газовая постоянная.
     // Размерности [P] = Bar, [V] = m3/Kmol, [T] = K
@@ -19,8 +19,10 @@ namespace MySpace::PhAn::EoS {
     extern const double SQRT_TWO;
 
     // Коэффициенты на основе ацентрического фактора.
-    double getSRK_M (double w);
-    double getPR_M  (double w);
+    double getSRK_M(double w);
+    double getPR_M(double w);
     
-} // namespace MySpace::PhAn::EoS;
-
+    double ToZFactor(double V, double P, double T);
+    double FromZFactor(double Z, double P, double T);
+    
+}
