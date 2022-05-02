@@ -7,13 +7,10 @@
 
 namespace NMySpace::NPhan::NEoS {
     
-    TSRK::TSRK()
-        : TCubicEoS(0, 1, OmegaA0_SRK, OmegaB0_SRK, "SRK")
-    {
-    }
+    TSRK::TSRK(): TCubicEoS(0, 1, OmegaA0_SRK, OmegaB0_SRK, "SRK") {}
     
-    double TSRK::alphaT(double Tr, double w) const {
-        double temp = (1 + getSRK_M(w)*(1 - std::sqrt(Tr)));
+    double TSRK::AlphaT(double Tr, double w) const {
+        double temp = (1 + GetSRK_M(w)*(1 - std::sqrt(Tr)));
         return temp*temp;
     }
     

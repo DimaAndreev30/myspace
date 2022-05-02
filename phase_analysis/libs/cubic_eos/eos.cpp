@@ -30,8 +30,8 @@ namespace NMySpace::NPhan::NEoS {
                              
         return TParamsBase{
             .T = T,
-            .A = alpha(Tr, props.w)*RT*RT/props.Pc,
-            .B = beta()*RT/props.Pc,
+            .A = Alpha(Tr, props.w)*RT*RT/props.Pc,
+            .B = Beta()*RT/props.Pc,
         };
     }
     
@@ -43,37 +43,37 @@ namespace NMySpace::NPhan::NEoS {
                              
         return TParamsBase{
             .T = T,
-            .A = alpha(Tr, props.w)/(Tr*Tr*props.Pc),
-            .B = beta()/(Tr*props.Pc),
+            .A = Alpha(Tr, props.w)/(Tr*Tr*props.Pc),
+            .B = Beta()/(Tr*props.Pc),
         };
     }
     
-    double TCubicEoS::computeDemoninator(const TParams& p, double V) const {
+    double TCubicEoS::ComputeDemoninator(const TParams& p, double V) const {
         return (V + m1_*p.B)*(V + m2_*p.B);
     }
     
-    double TCubicEoS::computePWith(const TParams& p, double V, double denom) const {
+    double TCubicEoS::ComputePWith(const TParams& p, double V, double denom) const {
         return R_CONST*p.T/(V - p.B) - p.A/denom;
     }
     
-    double TCubicEoS::computeDPWith(const TParams& p, double V, double denom) const {
+    double TCubicEoS::ComputeDPWith(const TParams& p, double V, double denom) const {
         double shift = V - p.B;
         return -R_CONST*p.T/(shift*shift) + p.A*(2*V + (m1_ + m2_)*p.B)/(denom*denom);
     }
     
-    double TCubicEoS::computeP(const TParams& p, double V) const {
-        return computePWith(p, V, computeDemoninator(p, V));
+    double TCubicEoS::ComputeP(const TParams& p, double V) const {
+        return ComputePWith(p, V, ComputeDemoninator(p, V));
     }
     
-    std::pair<double, double> TCubicEoS::computeDP(const TParams& p, double V) const {
-        double denom = computeDemoninator(p, V);
+    std::pair<double, double> TCubicEoS::ComputeDP(const TParams& p, double V) const {
+        double denom = ComputeDemoninator(p, V);
         return {
-            computePWith(p, V, denom),
-            computeDPWith(p, V, denom),
+            ComputePWith(p, V, denom),
+            ComputeDPWith(p, V, denom),
         };
     }
     
-    static TSolution extractSolution(
+    static TSolution ExtractSolution(
         NCubicEq::TSolution s, 
         double bound,
         bool isPPositive
@@ -82,7 +82,7 @@ namespace NMySpace::NPhan::NEoS {
             if (s.Type == NCubicEq::TSolution::EType::One) {
                 return TSolution(s.Im.Real > bound ? s.Im.Real : bound);
             } else {
-                NUtils::sort3(s.At.data());
+                NUtils::Sort3(s.At.data());
                 if (s.At[1] > bound) {
                     return TSolution(s.At[0] > bound ? s.At[0] : bound, s.At[2]);
                 }
@@ -92,15 +92,15 @@ namespace NMySpace::NPhan::NEoS {
             if (s.Type == NCubicEq::TSolution::EType::One) {
                 return TSolution();
             } else {
-                NUtils::sort3Desc(s.At.data());
+                NUtils::Sort3Desc(s.At.data());
                 return TSolution(s.At[1] < bound ? s.At[1] : bound);
             }
         }
     }
     
-    TSolution TCubicEoS::solve(const TDimlessParams& p) const {
-        return extractSolution(
-            NCubicEq::simpleSolve(
+    TSolution TCubicEoS::Solve(const TDimlessParams& p) const {
+        return ExtractSolution(
+            NCubicEq::SimpleSolve(
                 (m1_ + m2_ - 1)*p.B - 1,
                 p.A - ((m1_ + m2_ - m1_*m2_)*p.B + (m1_ + m2_))*p.B,
                 -(p.A + m1_*m2_*p.B*(p.B + 1))*p.B

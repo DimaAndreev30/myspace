@@ -7,7 +7,7 @@
 
 namespace NMySpace::NPhan::NCubicEq {
 
-    TSolution simpleSolve(double a, double b, double c) {
+    TSolution SimpleSolve(double a, double b, double c) {
         a /= 3; b /= 3;
         
         // Вычисление коэффициентов приведенного уравнения:
@@ -35,7 +35,7 @@ namespace NMySpace::NPhan::NCubicEq {
             return TSolution{
                 .Type = TSolution::EType::One,
                 .Im = {
-                    .Real = getAlphaPlusBeta(p, q, p3, q2) - a,
+                    .Real = GetAlphaPlusBeta(p, q, p3, q2) - a,
                 },
             };
         }

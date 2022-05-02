@@ -13,13 +13,13 @@ namespace NMySpace::NPhan {
     // Вывод в формате "P Z V status" - давление, Z-factor, вычисленный объем, статус найденного решения.
     // Если была найдена двухфазная область, то в выводе будет две кривых - первая жидкая, вторая газовая.
     
-    void createPVCurveByP(std::ostream& out,
+    void CreatePVCurveByP(std::ostream& out,
                           const NEoS::TDimlessParamsFactory& p,
                           const NEoS::TCubicEoS& eos,
                           double T,
                           int N, double P1, double P2);
                           
-    void createPVCurveByP(std::ostream& out,
+    void CreatePVCurveByP(std::ostream& out,
                           const TPureSubstanceProps& props,
                           const NEoS::TCubicEoS& eos,
                           double T,

@@ -9,7 +9,7 @@
 
 namespace NMySpace::NPhan {
     
-    void createPVCurveByP(std::ostream& out,
+    void CreatePVCurveByP(std::ostream& out,
                           const NEoS::TDimlessParamsFactory& p,
                           const NEoS::TCubicEoS& eos,
                           double T,
@@ -49,50 +49,50 @@ namespace NMySpace::NPhan {
                 }
             }
                 
-            NEoS::TSolution solution = eos.solve(p.get(P2));
+            NEoS::TSolution solution = eos.Solve(p.Build(P2));
             
             double Z;
             switch (state) {
                 case NoTwoPhasesDetected:
-                    if (!solution.isSolution()) {
+                    if (!solution.IsSolution()) {
                         continue;
                     }
-                    if (solution.isTwoPhases()) {
+                    if (solution.IsTwoPhases()) {
                         state = TwoPhasesLiquid;
                         twoPhaseStart = P2;
                     }
-                    Z = solution.getL();
+                    Z = solution.GetLiquid();
                     break;
                 case TwoPhasesLiquid:
-                    if (!solution.isSolution() ||
-                        (!solution.isTwoPhases() && P2 > dP)) {
+                    if (!solution.IsSolution() ||
+                        (!solution.IsTwoPhases() && P2 > dP)) {
                         switchPhase();
                         continue;
                     }
-                    Z = solution.getL();
+                    Z = solution.GetLiquid();
                     break;
                 case TwoPhasesVapor:
-                    if (!solution.isSolution()) {
+                    if (!solution.IsSolution()) {
                         return;
                     }
-                    Z = solution.getV();
+                    Z = solution.GetVapor();
                     break;
             }
             
             out << P2 << ' ' << Z << ' ' 
                 << NEoS::FromZFactor(Z, P2, T) << ' ' 
-                << (solution.isTwoPhases() ? "two phases" : "one phase") << '\n';
+                << (solution.IsTwoPhases() ? "two phases" : "one phase") << '\n';
                 
             P2 -= dP;
         }
     }
                           
-    void createPVCurveByP(std::ostream& out,
+    void CreatePVCurveByP(std::ostream& out,
                           const TPureSubstanceProps& props,
                           const NEoS::TCubicEoS& eos,
                           double T,
                           int N, double P1, double P2) {
-        createPVCurveByP(out, 
+        CreatePVCurveByP(out, 
                          eos.BuildDimlessParams(props, T),
                          eos,
                          T,

@@ -35,10 +35,10 @@ const TPureSubstanceProps C10_nDECANE{
         
 int main(int argc, char* argv[]) {
     std::ofstream file1("output1.txt");
-    createPVCurveByV(file1, C10_nDECANE, NEoS::TPR{}, NEoS::T_ZERO + 200, 1000);
+    CreatePVCurveByV(file1, C10_nDECANE, NEoS::TPR{}, NEoS::T_ZERO + 200, 1000);
     
     std::ofstream file2("output2.txt");
-    createPVCurveByP(file2, C10_nDECANE, NEoS::TPR{}, NEoS::T_ZERO + 200, 1000, -100.0, 100.0);
+    CreatePVCurveByP(file2, C10_nDECANE, NEoS::TPR{}, NEoS::T_ZERO + 200, 1000, -100.0, 100.0);
     
     return 0;
 }

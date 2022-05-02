@@ -2,14 +2,6 @@
 
 #include <string>
 
-
-        enum EStatus {
-            Ok,
-            PositivePressureNoRoots,
-            PositivePressureTwoRoots,
-            NegativePressureOneRoot,
-            NegativePressureThreeRoots
-        };
         
 namespace NMySpace::NPhan::NEoS {
     
@@ -37,19 +29,19 @@ namespace NMySpace::NPhan::NEoS {
         {
         }
             
-        bool isSolution() const {
+        bool IsSolution() const {
             return IsSolution_;
         }
         
-        bool isTwoPhases() const {
+        bool IsTwoPhases() const {
             return IsTwoPhases_;
         }
         
-        double getL() const {
+        double GetLiquid() const {
             return Smaller_;
         }
         
-        double getV() const {
+        double GetVapor() const {
             return Bigger_;
         }
         

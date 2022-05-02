@@ -1,8 +1,9 @@
 add_executable(
     run_utils_test 
-    make_string_ut.cpp
     assert_ut.cpp
+    exceptions_ut.cpp
+    strings_ut.cpp
 )
-target_link_libraries(run_utils_test gmock gmock_main)
+target_link_libraries(run_utils_test utils gmock gmock_main)
 
 add_test(NAME run_utils_test COMMAND run_utils_test)

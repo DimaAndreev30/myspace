@@ -6,12 +6,12 @@
 namespace NMySpace::NPhan::NEoS {
     
     // Уравнение Редлиха-Квонга.
-    class TRK : public TCubicEoS {
+    class TRK: public TCubicEoS {
     public:
         TRK();
         
     private:
-        double alphaT(double Tr, double w) const override;
+        double AlphaT(double Tr, double w) const override;
     };
     
 }

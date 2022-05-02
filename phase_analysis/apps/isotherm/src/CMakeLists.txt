@@ -1,5 +1,5 @@
 add_library(phan_isotherm_plot_by_V plot_by_V.cpp)
-target_link_libraries(phan_isotherm_plot_by_V phan_cubic_eos)
+target_link_libraries(phan_isotherm_plot_by_V phan_cubic_eos utils)
 
 add_library(phan_isotherm_plot_by_P plot_by_P.cpp)
-target_link_libraries(phan_isotherm_plot_by_P phan_cubic_eos)
+target_link_libraries(phan_isotherm_plot_by_P phan_cubic_eos utils)

@@ -2,13 +2,13 @@
 
 #include <phase_analysis/libs/cubic_equation/solution.h>
 
-#include <libs/utils/make_string.h>
+#include <libs/utils/strings.h>
 
 using namespace NMySpace::NPhan::NCubicEq;
 using namespace NMySpace::NUtils;
 
 
-TEST(PhanCubicEquationTest, solution) {
+TEST(PhanCubicEquationTest, Solution) {
     TSolution s;
     
     s = TSolution{
@@ -48,7 +48,7 @@ TEST(PhanCubicEquationTest, solution) {
     EXPECT_DOUBLE_EQ(2.2, s.Im.Complex.Re);
     EXPECT_DOUBLE_EQ(3.3, s.Im.Complex.Im);
     
-    ASSERT_EQ("1.1, \t2.2, \t3.3", (TMakeString() << s).asString());
+    ASSERT_EQ("1.1, \t2.2, \t3.3", (TStringBuilder() << s).AsString());
     
     s = TSolution{
         .Type = TSolution::EType::One,
@@ -73,5 +73,5 @@ TEST(PhanCubicEquationTest, solution) {
     EXPECT_DOUBLE_EQ(2.2, s.Im.Complex.Re);
     EXPECT_DOUBLE_EQ(3.3, s.Im.Complex.Im);
     
-    ASSERT_EQ("1.1, \t2.2 \t+- i*3.3", (TMakeString() << s).asString());
+    ASSERT_EQ("1.1, \t2.2 \t+- i*3.3", (TStringBuilder() << s).AsString());
 }

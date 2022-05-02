@@ -7,12 +7,9 @@
 
 namespace NMySpace::NPhan::NEoS {
     
-    TRK::TRK()
-        : TCubicEoS(0, 1, OmegaA0_RK, OmegaB0_RK, "RK")
-    {
-    }
+    TRK::TRK(): TCubicEoS(0, 1, OmegaA0_RK, OmegaB0_RK, "RK") {}
     
-    double TRK::alphaT(double Tr, double w) const {
+    double TRK::AlphaT(double Tr, double w) const {
         return 1/std::sqrt(Tr);
     }
     

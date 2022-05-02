@@ -13,11 +13,11 @@ namespace NMySpace::NPhan::NEoS {
 
     const double SQRT_TWO = 1.414213562373095;
 
-    double getSRK_M(double w) {
+    double GetSRK_M(double w) {
         return 0.48 + w*(1.574 - w*0.176);
     }
 
-    double getPR_M(double w) {
+    double GetPR_M(double w) {
         if (w < 0.49) return 0.37464 + w*(1.54226 - w*0.26992);
         else return 0.379642 + w*(1.48503 + w*(w*0.016666 - 0.164423));
     }

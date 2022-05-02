@@ -19,8 +19,8 @@ namespace NMySpace::NPhan::NEoS {
     extern const double SQRT_TWO;
 
     // Коэффициенты на основе ацентрического фактора.
-    double getSRK_M(double w);
-    double getPR_M(double w);
+    double GetSRK_M(double w);
+    double GetPR_M(double w);
     
     double ToZFactor(double V, double P, double T);
     double FromZFactor(double Z, double P, double T);

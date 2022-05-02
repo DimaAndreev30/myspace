@@ -1,9 +1,10 @@
 #include <gtest/gtest.h>
 
-#include <phase_analysis/libs/cubic_equation/solver.h>
 #include <phase_analysis/libs/cubic_equation/simple.h>
 
 #include <phase_analysis/libs/utils/easy_sort.h>
+
+#include <libs/utils/assert.h>
 
 #include <ostream>
 #include <stdexcept>
@@ -11,6 +12,7 @@
 
 using namespace NMySpace::NPhan::NCubicEq;
 using namespace NMySpace::NPhan::NUtils;
+using namespace NMySpace;
 
 
 struct TTestCase {
@@ -29,13 +31,11 @@ std::ostream& operator<<(std::ostream& out, const TTestCase& test) {
     return out;
 }
 
-TTestCase makeThreeRootCase(
+TTestCase MakeThreeRootCase(
     double x1, double x2, double x3, 
     TSolution::EType type = TSolution::EType::Three
 ) {
-    if (type == TSolution::EType::One) {
-        throw std::invalid_argument("Incorrect case type: one root when there are three");
-    }
+    MY_ENSURE_EX(type != TSolution::EType::One, NUtils::TBadTestException, "");
     
     auto res = TTestCase{
         .a = -(x1 + x2 + x3),
@@ -47,12 +47,12 @@ TTestCase makeThreeRootCase(
         },
     };
    
-    sortAbs3(res.s.At.data());
+    SortAbs3(res.s.At.data());
     
     return res;
 }
 
-TTestCase makeOneRootCase(
+TTestCase MakeOneRootCase(
     double x1, double x2, double y2, 
     bool enableTestImaginary = false
 ) {
@@ -70,7 +70,7 @@ TTestCase makeOneRootCase(
     };
 }
 
-void testCase(const TTestCase& test, Solver solver) {
+void TestCase(const TTestCase& test, Solver solver) {
     TSolution s = solver(test.a, test.b, test.c);
     ASSERT_EQ(test.s.Type, s.Type);
     
@@ -82,7 +82,7 @@ void testCase(const TTestCase& test, Solver solver) {
             EXPECT_NEAR(test.s.Im.Complex.Im, s.Im.Complex.Im, 1e-5) << "Imaginary part failed on case:\n" << test;
         }
     } else {
-        sortAbs3(s.At.data());
+        SortAbs3(s.At.data());
         
         EXPECT_NEAR(test.s.At[0], s.At[0], 1e-5) << "Smallest root failed on case:\n" << test;
         EXPECT_NEAR(test.s.At[1], s.At[1], 1e-5) << "Middle root failed on case:\n" << test;
@@ -93,42 +93,42 @@ void testCase(const TTestCase& test, Solver solver) {
 
 using TSuitcase = std::vector<TTestCase>;
 
-void testSuitcase(const TSuitcase& suitcase, Solver solver) {
+void TestSuitcase(const TSuitcase& suitcase, Solver solver) {
     for (const auto& test : suitcase) {
-        testCase(test, solver);
+        TestCase(test, solver);
     }
 }
 
-const TSuitcase basicOneRoot = {
-    makeOneRootCase(1, 1, 1),
-    makeOneRootCase(1, -1, 1),
-    makeOneRootCase(-1, 1, 1),
-    makeOneRootCase(-1, -1, 1)
+static const TSuitcase BasicOneRoot = {
+    MakeOneRootCase(1, 1, 1),
+    MakeOneRootCase(1, -1, 1),
+    MakeOneRootCase(-1, 1, 1),
+    MakeOneRootCase(-1, -1, 1)
 };
     
-const TSuitcase AdvancedOneRoot = {
-    makeOneRootCase(12.21542534, 5321.215432, 315.2354532),
-    makeOneRootCase(43.1324432, -0.144532, 33.12345324),
-    makeOneRootCase(-6431.432646, 4325.876542, 994.684)
+static const TSuitcase AdvancedOneRoot = {
+    MakeOneRootCase(12.21542534, 5321.215432, 315.2354532),
+    MakeOneRootCase(43.1324432, -0.144532, 33.12345324),
+    MakeOneRootCase(-6431.432646, 4325.876542, 994.684)
 };
 
-const TSuitcase basicThreeRoot = {
-    makeThreeRootCase(1, 2, 3),
-    makeThreeRootCase(-1, -2, -3),
-    makeThreeRootCase(1, 2, -3),
-    makeThreeRootCase(-1, -2, 3),
-    makeThreeRootCase(1, -2, 3)
+static const TSuitcase BasicThreeRoot = {
+    MakeThreeRootCase(1, 2, 3),
+    MakeThreeRootCase(-1, -2, -3),
+    MakeThreeRootCase(1, 2, -3),
+    MakeThreeRootCase(-1, -2, 3),
+    MakeThreeRootCase(1, -2, 3)
 };
     
-const TSuitcase AdvancedThreeRoot = {
-    makeThreeRootCase(12.21542534, 315.2354532, 5321.215432),
-    makeThreeRootCase(-0.144532, 33.12345324, 43.1324432),
-    makeThreeRootCase(994.684, 4325.876542, -6431.432646)
+static const TSuitcase AdvancedThreeRoot = {
+    MakeThreeRootCase(12.21542534, 315.2354532, 5321.215432),
+    MakeThreeRootCase(-0.144532, 33.12345324, 43.1324432),
+    MakeThreeRootCase(994.684, 4325.876542, -6431.432646)
 };
     
-TEST(PhanCubicEquationTest, basic) {
-    testSuitcase(basicOneRoot, simpleSolve);
-    testSuitcase(AdvancedOneRoot, simpleSolve);
-    testSuitcase(basicThreeRoot, simpleSolve);
-    testSuitcase(AdvancedThreeRoot, simpleSolve);
+TEST(PhanCubicEquationTest, Basic) {
+    TestSuitcase(BasicOneRoot, SimpleSolve);
+    TestSuitcase(AdvancedOneRoot, SimpleSolve);
+    TestSuitcase(BasicThreeRoot, SimpleSolve);
+    TestSuitcase(AdvancedThreeRoot, SimpleSolve);
 }

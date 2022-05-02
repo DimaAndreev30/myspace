@@ -1,6 +1,6 @@
 #pragma once
 
-#include "solution.h"
+#include "solver.h"
 
 
 namespace NMySpace::NPhan::NCubicEq {
@@ -9,6 +9,6 @@ namespace NMySpace::NPhan::NCubicEq {
     // - потери точности в меньших по абсолютному значению корнях
     // - не умеет детектировать кратные корни
     // - не считает мнимые корни
-    TSolution simpleSolve(double a, double b, double c);
+    TSolution SimpleSolve(double a, double b, double c);
 
 }

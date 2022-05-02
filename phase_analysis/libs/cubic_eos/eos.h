@@ -20,15 +20,15 @@ namespace NMySpace::NPhan::NEoS {
             const TPureSubstanceProps& props, double T) const;
         
         // Вычисление давления через объем:
-        double computeP(const TParams& p, double V) const;
+        double ComputeP(const TParams& p, double V) const;
         // Вычисление давления через объем и первой производной давления по объему:
-        std::pair<double, double> computeDP(const TParams& p, double V) const;
+        std::pair<double, double> ComputeDP(const TParams& p, double V) const;
         
         // Вычисление объема через давление (решение кубического уравнения):
-        TSolution solve(const TDimlessParams& p) const;
+        TSolution Solve(const TDimlessParams& p) const;
         
     public:
-        const std::string& getName() const {
+        const std::string& GetName() const {
             return Name_;
         }
         
@@ -63,22 +63,22 @@ namespace NMySpace::NPhan::NEoS {
                   const std::string& name = "unknown");
         
     protected:
-        virtual double alphaT(double Tr, double w) const = 0;
-        virtual double betaT(double Tr) const {
+        virtual double AlphaT(double Tr, double w) const = 0;
+        virtual double BetaT(double Tr) const {
             return 1.0;
         }
         
-        double alpha(double Tr, double w) const {
-            return a0_*alphaT(Tr, w);
+        double Alpha(double Tr, double w) const {
+            return a0_*AlphaT(Tr, w);
         }
-        double beta(/*double Tr*/) const {
-            return b0_; // *betaT(Tr);
+        double Beta(/*double Tr*/) const {
+            return b0_; // *BetaT(Tr);
         }
         
     private:
-        double computeDemoninator(const TParams& p, double V) const;
-        double computePWith(const TParams& p, double V, double denom) const;
-        double computeDPWith(const TParams& p, double V, double denom) const;
+        double ComputeDemoninator(const TParams& p, double V) const;
+        double ComputePWith(const TParams& p, double V, double denom) const;
+        double ComputeDPWith(const TParams& p, double V, double denom) const;
         
     private:
         double m1_, m2_;

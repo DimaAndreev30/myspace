@@ -3,7 +3,7 @@
 
 namespace NMySpace::NPhan::NEoS {
    
-    TDimlessParams TDimlessParamsFactory::get(double P) const {
+    TDimlessParams TDimlessParamsFactory::Build(double P) const {
         return TDimlessParams(TParamsBase{
             .T = T,
             .A = P*A,

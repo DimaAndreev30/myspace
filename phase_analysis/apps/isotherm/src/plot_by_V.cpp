@@ -9,7 +9,7 @@
 
 namespace NMySpace::NPhan {
     
-    void createPVCurveByV(std::ostream& out,
+    void CreatePVCurveByV(std::ostream& out,
                           const NEoS::TParams& p,
                           const NEoS::TCubicEoS& eos,
                           double T,
@@ -35,19 +35,19 @@ namespace NMySpace::NPhan {
         
         for (; po1 >= po2; po1 -= dpo) {
             double V = 1/po1;
-            auto [P, DP] = eos.computeDP(p, V);
+            auto [P, DP] = eos.ComputeDP(p, V);
             
             out << V << ' ' << P << ' ' << DP << ' '
                 << NEoS::ToZFactor(V, P, T) << ' ' << po1 << '\n';
         }
     }
                           
-    void createPVCurveByV(std::ostream& out,
+    void CreatePVCurveByV(std::ostream& out,
                           const TPureSubstanceProps& props,
                           const NEoS::TCubicEoS& eos,
                           double T,
                           int N, bool isAuto, double V1, double V2) {
-        createPVCurveByV(out,
+        CreatePVCurveByV(out,
                          eos.BuildParams(props, T),
                          eos,
                          T,

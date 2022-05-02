@@ -8,6 +8,7 @@ target_link_libraries(
     run_phan_cubic_equation_test 
     phan_cubic_equation 
     phan_utils 
+    utils
     gtest 
     gtest_main
 )

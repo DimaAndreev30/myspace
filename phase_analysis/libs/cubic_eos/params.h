@@ -33,7 +33,7 @@ namespace NMySpace::NPhan::NEoS {
             : TParamsBase(base) 
         {}
         
-        TDimlessParams get(double P) const;
+        TDimlessParams Build(double P) const;
     };
     
 }
