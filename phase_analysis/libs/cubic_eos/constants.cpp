@@ -1,7 +1,7 @@
 #include "constants.h"
 
 
-namespace NMySpace::NPhan::NEoS {
+namespace NMySpace::NPhan::NCubicEoS {
     
     const double R_CONST = 0.083144598484848;
 

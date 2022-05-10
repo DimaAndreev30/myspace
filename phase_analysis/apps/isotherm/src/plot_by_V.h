@@ -16,14 +16,14 @@ namespace NMySpace::NPhan {
     // иначе значения V1, V2 расчитываются автоматически, стараясь поймать характерную область изотермы.
     
     void CreatePVCurveByV(std::ostream& out,
-                          const NEoS::TParams& p,
-                          const NEoS::TCubicEoS& eos,
+                          const NCubicEoS::TParams& p,
+                          const NCubicEoS::TCubicEoS& eos,
                           double T,
                           int N, bool isAuto = true, double V1 = 0.0, double V2 = 0.0);
                           
     void CreatePVCurveByV(std::ostream& out,
                           const TPureSubstanceProps& props,
-                          const NEoS::TCubicEoS& eos,
+                          const NCubicEoS::TCubicEoS& eos,
                           double T,
                           int N, bool isAuto = true, double V1 = 0.0, double V2 = 0.0);
     

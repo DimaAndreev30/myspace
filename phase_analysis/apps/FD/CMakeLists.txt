@@ -1,7 +1,12 @@
-add_executable(FD main.cpp)
+add_subdirectory(src)
+
+add_executable(phan_FD main.cpp)
 target_link_libraries(
-    FD
-    FD_by_P
-    FD_along_c
-    ${cubic_eos}
+    phan_FD
+    phan_FD_mixture_factory
+    phan_pheq_flash
+    phan_pheq_wilson
+    phan_cubic_eos_RK
+    phan_cubic_eos_SRK
+    phan_cubic_eos_PR
 )

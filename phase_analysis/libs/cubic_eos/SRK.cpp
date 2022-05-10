@@ -5,7 +5,7 @@
 #include <cmath>
 
 
-namespace NMySpace::NPhan::NEoS {
+namespace NMySpace::NPhan::NCubicEoS {
     
     TSRK::TSRK(): TCubicEoS(0, 1, OmegaA0_SRK, OmegaB0_SRK, "SRK") {}
     

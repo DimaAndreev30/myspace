@@ -14,14 +14,14 @@ namespace NMySpace::NPhan {
     // Если была найдена двухфазная область, то в выводе будет две кривых - первая жидкая, вторая газовая.
     
     void CreatePVCurveByP(std::ostream& out,
-                          const NEoS::TDimlessParamsFactory& p,
-                          const NEoS::TCubicEoS& eos,
+                          const NCubicEoS::TDimlessParamsWOPressure& p,
+                          const NCubicEoS::TCubicEoS& eos,
                           double T,
                           int N, double P1, double P2);
                           
     void CreatePVCurveByP(std::ostream& out,
                           const TPureSubstanceProps& props,
-                          const NEoS::TCubicEoS& eos,
+                          const NCubicEoS::TCubicEoS& eos,
                           double T,
                           int N, double P1, double P2);
     

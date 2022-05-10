@@ -35,7 +35,7 @@ TTestCase MakeThreeRootCase(
     double x1, double x2, double x3, 
     TSolution::EType type = TSolution::EType::Three
 ) {
-    MY_ENSURE_EX(type != TSolution::EType::One, NUtils::TBadTestException, "");
+    MS_ENSURE_EX(type != TSolution::EType::One, NUtils::TBadTestException, "");
     
     auto res = TTestCase{
         .a = -(x1 + x2 + x3),

@@ -3,7 +3,7 @@
 #include "eos.h"
 
 
-namespace NMySpace::NPhan::NEoS {
+namespace NMySpace::NPhan::NCubicEoS {
     
     // Уравнение Пенга-Робинсона.
     class TPR: public TCubicEoS {

@@ -3,66 +3,53 @@
 #include <cmath>
 
 
-namespace MySpace::PhAn {
+namespace NMySpace::NPhan::NPheq {
     
-    PhEqResult computePhEq(const PhEqSettings& setts, 
-                           MixtureInterface& mixture,
-                           const std::vector<double>& z, 
-                           std::vector<double>& kValues) {
-        int N = mixture.getN();
+    TFlash::TResult TFlash::Compute(
+        const TSettings& setts, 
+        const IMixtureFactory& mixtureFactory,
+        const std::vector<double>& z, 
+        std::vector<double>& kValues
+    ) {
+        size_t N = mixtureFactory.N();
         
-        TwoPhaseCompos compos(N);
-        std::vector<double> phiL(N), phiV(N);
+        TCompos compos(N);
         
-        int iterationsNumber = 0;
-        while (iterationsNumber < setts.maxIterationsNumber) {
+        size_t iterationsNumber = 0;
+        while (iterationsNumber < setts.MaxIterationsNumber) {
             ++iterationsNumber;
             
-            if (!compos.setFromKValues(kValues, z)) {
+            if (!compos.SetFromKValues(kValues, z)) {
                 break;
             }
             
-            if (mixture.setCompos(
+            auto liquid = mixtureFactory.Build(
                     compos.x, 
-                    MixtureInterface::Traits::AS_LIQUID
-                ) != MixtureInterface::Status::OK) {
-                break;
-            }
-            
-            for (int i = 0; i < N; i++) {
-                phiL[i] = mixture.getPhi(i);
-            }
-            
-            if (mixture.setCompos(
+                    IMixtureFactory::ETrait::AsLiquid);
+                    
+            auto vapor = mixtureFactory.Build(
                     compos.y, 
-                    MixtureInterface::Traits::AS_VAPOR
-                ) != MixtureInterface::Status::OK) {
-                break;
-            }
-            
-            for (int i = 0; i < N; i++) {
-                phiV[i] = mixture.getPhi(i);
-            }
+                    IMixtureFactory::ETrait::AsVapor);
             
             double relerr = 0;
-            for (int i = 0; i < N; i++) {
-                kValues[i] = phiL[i]/phiV[i];
+            for (size_t i = 0; i < N; ++i) {
+                kValues[i] = liquid->Phi(i)/vapor->Phi(i);
                 relerr += std::abs(compos.x[i]*kValues[i]/compos.y[i] - 1.0);
             }
             
-            if (relerr < setts.eps*N) {
-                return PhEqResult{
-                    .status = PhEqResult::OK,
-                    .iterationsNumber = iterationsNumber,
-                    .compos = compos
+            if (relerr < setts.Eps*N) {
+                return TResult{
+                    .Status = TResult::EStatus::Ok,
+                    .IterationsNumber = iterationsNumber,
+                    .Compos = std::move(compos)
                 };
             }
         }
         
-        return PhEqResult{
-            .status = PhEqResult::NOT_CONVERGE,
-            .iterationsNumber = iterationsNumber
+        return TResult{
+            .Status = TResult::EStatus::NotConverge,
+            .IterationsNumber = iterationsNumber
         };
     }
     
-} // namespace MySpace::PhAn;
+}

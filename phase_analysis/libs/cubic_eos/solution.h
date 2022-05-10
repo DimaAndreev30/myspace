@@ -3,7 +3,7 @@
 #include <string>
 
         
-namespace NMySpace::NPhan::NEoS {
+namespace NMySpace::NPhan::NCubicEoS {
     
     class TSolution {
     public:

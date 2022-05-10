@@ -3,10 +3,9 @@
 #include <vector>
 
 
-namespace MySpace::PhAn {
+namespace NMySpace::NPhan::NPheq {
     
-    // TODO: убрать обращение с данными напрямую - сделать сеттеры/геттеры
-    class TwoPhaseCompos {
+    class TCompos {
     public:
         double L, V; // Доля жидкой и газовой фаз (L + V = 1)
         
@@ -14,11 +13,11 @@ namespace MySpace::PhAn {
         std::vector<double> y; // Концентрации в газовой фазе
         
     public:
-        explicit TwoPhaseCompos(size_t N = 0);
+        explicit TCompos(size_t N = 0);
         
     public:
-        bool setFromKValues(const std::vector<double>& kValues, 
+        bool SetFromKValues(const std::vector<double>& kValues, 
                             const std::vector<double>& z);
     };
     
-} // namespace MySpace::PhAn;
+}

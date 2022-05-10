@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace NMySpace::NPhan::NEoS {
+namespace NMySpace::NPhan::NCubicEoS {
     
     // Универсальная газовая постоянная.
     // Размерности [P] = Bar, [V] = m3/Kmol, [T] = K

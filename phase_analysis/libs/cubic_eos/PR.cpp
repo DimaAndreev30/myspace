@@ -5,7 +5,7 @@
 #include <cmath>
 
 
-namespace NMySpace::NPhan::NEoS {
+namespace NMySpace::NPhan::NCubicEoS {
     
     TPR::TPR(): TCubicEoS(1 + SQRT_TWO, 1 - SQRT_TWO, OmegaA0_PR, OmegaB0_PR, "PR") {}
     

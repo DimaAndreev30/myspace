@@ -1,4 +1,4 @@
-#include "two_phase_compos.h"
+#include "compos.h"
 
 #include <cmath>
 #include <algorithm>
@@ -10,17 +10,17 @@ double pow2(double x) {
     return x*x;
 }
 
-namespace MySpace::PhAn {
+namespace NMySpace::NPhan::NPheq {
     
-    TwoPhaseCompos::TwoPhaseCompos(size_t N)
+    TCompos::TCompos(size_t N)
     {
         x.reserve(N);
         y.reserve(N);
     }
     
-    bool TwoPhaseCompos::setFromKValues(const std::vector<double>& kValues, 
-                                        const std::vector<double>& z) {
-        int N = kValues.size();
+    bool TCompos::SetFromKValues(const std::vector<double>& kValues, 
+                                 const std::vector<double>& z) {
+        size_t N = kValues.size();
         
         x.resize(N);
         y.resize(N);
@@ -92,4 +92,4 @@ namespace MySpace::PhAn {
         return true;
     }
     
-} // namespace MySpace::PhAn;
+}

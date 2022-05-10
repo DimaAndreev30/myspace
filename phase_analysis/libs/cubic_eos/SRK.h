@@ -3,7 +3,7 @@
 #include "eos.h"
 
 
-namespace NMySpace::NPhan::NEoS {
+namespace NMySpace::NPhan::NCubicEoS {
     
     // Уравнение Соуве-Редлиха-Квонга.
     class TSRK: public TCubicEoS {

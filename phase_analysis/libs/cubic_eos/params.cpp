@@ -1,14 +1,13 @@
 #include "params.h"
 
 
-namespace NMySpace::NPhan::NEoS {
+namespace NMySpace::NPhan::NCubicEoS {
    
-    TDimlessParams TDimlessParamsFactory::Build(double P) const {
-        return TDimlessParams(TParamsBase{
-            .T = T,
+    TDimlessParams TDimlessParamsWOPressure::With(double P) const {
+        return TParamsBase{
             .A = P*A,
             .B = P*B,
-        }, P);
+        };
     }
     
 }

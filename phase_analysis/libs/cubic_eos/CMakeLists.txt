@@ -20,5 +20,3 @@ target_link_libraries(phan_cubic_eos_SRK phan_cubic_eos)
 
 add_library(phan_cubic_eos_PR PR.cpp)
 target_link_libraries(phan_cubic_eos_PR phan_cubic_eos)
-
-# add_subdirectory(mixture)

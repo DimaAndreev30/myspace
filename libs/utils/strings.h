@@ -10,7 +10,9 @@
 // TODO: reserve
 
 namespace NMySpace::NUtils {
+    
     class TStringBuilder;
+        
 }
 
 namespace NMySpace::NUtils::NPrivate {

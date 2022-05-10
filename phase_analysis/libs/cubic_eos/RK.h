@@ -3,7 +3,7 @@
 #include "eos.h"
 
 
-namespace NMySpace::NPhan::NEoS {
+namespace NMySpace::NPhan::NCubicEoS {
     
     // Уравнение Редлиха-Квонга.
     class TRK: public TCubicEoS {

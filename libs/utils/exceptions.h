@@ -37,6 +37,8 @@ namespace NMySpace::NUtils {
     };
     
     EXCEPTION_WITH_PREFIX(EnsureFailed)
+    EXCEPTION_WITH_PREFIX(OutOfRange)
+    EXCEPTION_WITH_PREFIX(BadValue)
     EXCEPTION_WITH_PREFIX(BadTest)
     
     #undef EXCEPTION_WITH_PREFIX

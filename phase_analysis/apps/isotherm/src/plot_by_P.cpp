@@ -10,15 +10,15 @@
 namespace NMySpace::NPhan {
     
     void CreatePVCurveByP(std::ostream& out,
-                          const NEoS::TDimlessParamsFactory& p,
-                          const NEoS::TCubicEoS& eos,
+                          const NCubicEoS::TDimlessParamsWOPressure& p,
+                          const NCubicEoS::TCubicEoS& eos,
                           double T,
                           int N, double P1, double P2) {
-        MY_ENSURE(N > 1, "N should be > 1: got " << N << " <= 1");
-        MY_ENSURE(P1 < P2, "P1 should be < P2: got " << P1 << " >= " << P2);
+        MS_ENSURE(N > 1, "N should be > 1: got " << N << " <= 1");
+        MS_ENSURE(P1 < P2, "P1 should be < P2: got " << P1 << " >= " << P2);
         
         double dP = (P2 - P1)/(N - 1);
-        MY_ENSURE(
+        MS_ENSURE(
             dP > 1e-150 && std::abs(dP/P1) > 1e-12 && std::abs(dP/P2) > 1e-12,
             "N is too big: got " << N);
         
@@ -49,7 +49,7 @@ namespace NMySpace::NPhan {
                 }
             }
                 
-            NEoS::TSolution solution = eos.Solve(p.Build(P2));
+            NCubicEoS::TSolution solution = eos.Solve(p, P2);
             
             double Z;
             switch (state) {
@@ -80,7 +80,7 @@ namespace NMySpace::NPhan {
             }
             
             out << P2 << ' ' << Z << ' ' 
-                << NEoS::FromZFactor(Z, P2, T) << ' ' 
+                << NCubicEoS::FromZFactor(Z, P2, T) << ' ' 
                 << (solution.IsTwoPhases() ? "two phases" : "one phase") << '\n';
                 
             P2 -= dP;
@@ -89,7 +89,7 @@ namespace NMySpace::NPhan {
                           
     void CreatePVCurveByP(std::ostream& out,
                           const TPureSubstanceProps& props,
-                          const NEoS::TCubicEoS& eos,
+                          const NCubicEoS::TCubicEoS& eos,
                           double T,
                           int N, double P1, double P2) {
         CreatePVCurveByP(out, 
