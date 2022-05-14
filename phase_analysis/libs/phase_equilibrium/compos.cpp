@@ -30,7 +30,7 @@ namespace NMySpace::NPhan::NPheq {
                 x[0] = y[0] = 1;
                 V = L = 0.5;
                 
-                break;
+                return false;
             }
             case 2: {// Две компоненты, линейное уравнение      
                 x[0] = (kValues[1] - 1)/(kValues[1] - kValues[0]);
@@ -42,7 +42,7 @@ namespace NMySpace::NPhan::NPheq {
                 V = (z[0] - x[0])/(y[0] - x[0]);
                 L = 1 - V;
                 
-                break;
+                return true;
             }
             case 3: {// Три компоненты, квадратное уравнение
                 double D2 = pow2((1 - z[0])/(kValues[0] - 1)) + 
@@ -75,20 +75,49 @@ namespace NMySpace::NPhan::NPheq {
                     return false;
                 }
                 
-                L = 1 - V;
-                
-                for (int i = 0; i < 3; i++) {
-                    x[i] = z[i]/(1 + (kValues[i] - 1)*V);
-                    y[i] = kValues[i]*x[i];
-                }
-                
                 break;
             }
-            default: {// Общий случай, решение итерационным методом
+            default: {
+                const double eps = 1e-4;
+            
+                double Kmin = 1e300, Kmax = 0.0;
+                for (size_t i = 0; i < N; ++i) {
+                    if (Kmin > kValues[i]) {
+                        Kmin = kValues[i];
+                    }
+                    if (Kmax < kValues[i]) {
+                        Kmax = kValues[i];
+                    }
+                }
+                
+                double F = 0.0, dF = 0.0, Vprev = 0.0;
+                V = 0.5;
+                while (std::abs(V - Vprev) > eps || std::abs(F) > eps) {
+                    Vprev = V;
+                    
+                    F = 0.0, dF = 0.0;
+                    for (size_t i = 0; i < N; ++i) {
+                        F += ((kValues[i] - 1)*z[i])/(1 + (kValues[i] - 1)*V);
+                        
+                        double dFi = (kValues[i] - 1)/(1 + (kValues[i] - 1)*V);
+                        dFi = -dFi*dFi*z[i];
+                        dF += dFi;
+                    }
+                    
+                    V -= F/dF;
+                }
+        
                 break;
             }
         }
-          
+        
+        L = 1 - V;
+        
+        for (int i = 0; i < N; i++) {
+            x[i] = z[i]/(1 + (kValues[i] - 1)*V);
+            y[i] = kValues[i]*x[i];
+        }
+                  
         return true;
     }
     
